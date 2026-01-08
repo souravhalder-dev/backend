@@ -27,7 +27,7 @@ except LookupError:
     nltk.download('punkt_tab')
 
 def get_wiki_content(title):
-    url = "https://justapedia.org/api.php"
+    url = "https://en.wikipedia.org/w/api.php"
     params = {
         "action": "parse",
         "page": title,
@@ -36,7 +36,7 @@ def get_wiki_content(title):
         "redirects": 1
     }
     headers = {
-        "User-Agent": "JustapediaChatbot/1.0 (contact@example.com)"
+        "User-Agent": "WikipediaSummarizer/1.0 (contact@example.com)"
     }
     
     print(f"Fetching article: {title}", file=sys.stderr)
@@ -126,7 +126,7 @@ def summarize():
         return jsonify({"error": "Article not found or empty"}), 404
         
     summary_text = summarize_text(content)
-    article_url = f"https://justapedia.org/wiki/{urllib.parse.quote(title.replace(' ', '_'))}"
+    article_url = f"https://en.wikipedia.org/wiki/{urllib.parse.quote(title.replace(' ', '_'))}"
     print("Generated summary", file=sys.stderr)
     
     return jsonify({"summary": summary_text, "title": title, "url": article_url})
